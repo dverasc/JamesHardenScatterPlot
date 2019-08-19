@@ -1,11 +1,11 @@
 from sportsreference.nba.roster import Player
 import matplotlib.pyplot as plt
+import matplotlib.style as style
 import numpy as np
 ##from matplotlib.backends.backend_pdf import PdfPages
-
 ##pdf = PdfPages('multipage.pdf')
 ##fig1 = plt.figure()
-
+style.available
 jharden = Player('hardeja01')
 
 points0708 = jharden('2007-08').points
@@ -33,6 +33,8 @@ turnovers1516 = jharden('2014-15').turnovers
 turnovers1617 = jharden('2014-15').turnovers
 turnovers1718 = jharden('2014-15').turnovers
 
+
+style.use('fivethirtyeight')
 plt.title('James Harden Points vs Turnovers')
 #plt.ylabel('Total Points Scored')
 #plt.xlabel('Turnovers')
@@ -45,6 +47,3 @@ plt.scatter([points0708,points0809,points0910,points1011,points1112,points1213,p
 ##plt.plot(, label = 'Turnovers')
 #plt.xticks([season1415, season1516, season1617, season1718])
 plt.show()
-
-
-
