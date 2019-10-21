@@ -1,0 +1,53 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as mlib
+import seaborn as sns
+print("Sucessfully imported")
+
+from sportsreference.nba.roster import Player
+
+
+
+
+james_harden = Player('hardeja01')
+print(james_harden.name)  # Prints 'James Harden'
+
+# Create a Pandas DataFrame of all relevant Harden stats per season
+df = james_harden.dataframe
+
+#df.columns
+#df.info()
+#print(james_harden.dataframe)
+
+
+#Data Exploration
+#sns.lmplot(y='points', x='turnovers',data=df)
+#sns.lmplot(y='points', x='assists',data=df)
+#sns.lmplot(y='points', x='steals',data=df)
+#sns.lmplot(y='points', x='minutes_played',data=df)
+
+#Load datasets for training and testing
+X = df[['assists','steals','turnovers','minutes_played']]
+y =df['points']
+
+#Create test and train split (ideally 70/30)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=42)
+
+#fit regression model
+lm = LinearRegression()
+lm.fit(X_train,y_train)
+
+
+#Print out coefficients
+coeff_df = pd.DataFrame(lm.coef_,X.columns,columns=['Coefficient'])
+coeff_df
+
+#Plot predictions with test
+
+predictions = lm.predict(X_test)
+mlib.scatter(y_test, predictions)
+
+#Distribution plot
+
+sns.distplot((y_test-predictions),bins=50)
